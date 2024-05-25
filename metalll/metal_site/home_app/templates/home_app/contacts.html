@@ -1,0 +1,64 @@
+{% extends "layout/base.html" %}
+{% load static %}
+{% block title %}{{title}}{% endblock title %}
+
+{% block content %}
+<div class="contact_info" style="margin: 30px;">
+    <div class="message" style="margin: 15px; background-color: aliceblue;">
+        {% csrf_token %}
+        {% if messages %}
+        {% for message in messages %}
+        {{ message }}
+        {% endfor %}
+        {% endif %}
+    </div>
+</div>
+
+<form action="{% url 'home_app:contacts' %}" method="POST" enctype="multipart/form-data" style="align-self: left;">
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+  </div>
+            <div class="field_form">
+                {{ field }}
+            </div>
+            {% if field.errors %}
+            <div class="errors_form">
+                {{ field.errors }}
+            </div>
+            {% endif %}
+            {% endfor %}
+
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1">
+  </div>
+  <div class="mb-3 form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<form action="{% url 'home_app:contacts' %}" method="POST" enctype="multipart/form-data" style="align-self: left;">
+        {% csrf_token %}
+        <fieldset
+            style="width: 300px; margin: 0; padding: 20px; border: 1px solid #ccc; border-radius: 5px; text-align: left;">
+            <legend style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">Связаться с нами</legend>
+            {% for field in form %}
+            <div class="field_form">
+                {{ field }}
+            </div>
+            {% if field.errors %}
+            <div class="errors_form">
+                {{ field.errors }}
+            </div>
+            {% endif %}
+            {% endfor %}
+            <button class="button" type="submit">Отправить</button>
+        </fieldset>
+</form>
+
+{% endblock %}

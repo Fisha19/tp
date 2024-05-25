@@ -1,0 +1,25 @@
+{% extends "layout/base.html" %}
+{% load static %}
+{% block title %}{{title}}{% endblock title %}
+{% block content %}
+<div class="container-fluid">
+    <div class="row mt-5">
+        {% for category in categories %}
+        <div class="col justify-content-between">
+            <a class="text-decoration-none" href="{{ category.get_absolute_url }}">
+                <div class="card p-4 m-2">
+                    <img src="{{ category.image.url }}" class="card-img-top" alt="{{ category.title }}">
+                    <div class="card-body">
+                        <h3>
+                            {{ category.title }}
+
+                        </h3>
+                        <p class="card-text">{{ category.description|truncatewords:30 }}</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
